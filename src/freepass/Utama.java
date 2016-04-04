@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package freepass;
-import freepass.UI.MenuUtama;
+import freepass.UI.*;
 import freepass.dialog.FormLogin;
 /**
  *
@@ -19,9 +19,14 @@ public class Utama {
         new FormLogin(new javax.swing.JFrame(), true).setVisible(true);
     }
 
+    public void tampilMenuLogin() {
+        new FormLogin(new javax.swing.JFrame(), true).setVisible(true);
+    }
+
     public void tampilMenuUtama() {
         new MenuUtama().setVisible(true);
     }
-    
-    
+    public void tampilProses() {
+        new FrmProses().setVisible(true);
+    }
 }

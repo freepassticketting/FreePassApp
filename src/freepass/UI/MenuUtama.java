@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package freepass.UI;
-import freepass.dialog.FormLogin;
 import freepass.dialog.addKaryawan;
+import freepass.Utama;
 /**
  *
  * @author nufail
@@ -21,20 +21,16 @@ public class MenuUtama extends javax.swing.JFrame {
     private void initComponents() {
 
         panelmakeOver1 = new komponenMakeOver.panelmakeOver();
-        buttonMakeOver2 = new komponenMakeOver.buttonMakeOver();
         btnInputData = new komponenMakeOver.buttonMakeOver();
         buttonMakeOver6 = new komponenMakeOver.buttonMakeOver();
         jLabel1 = new javax.swing.JLabel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
         buttonMakeOver3 = new komponenMakeOver.buttonMakeOver();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
         setResizable(false);
-
-        buttonMakeOver2.setForeground(new java.awt.Color(255, 255, 255));
-        buttonMakeOver2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/computer.png"))); // NOI18N
-        buttonMakeOver2.setText("Detail Karyawan");
 
         btnInputData.setForeground(new java.awt.Color(255, 255, 255));
         btnInputData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/male_user.png"))); // NOI18N
@@ -72,33 +68,31 @@ public class MenuUtama extends javax.swing.JFrame {
         panelmakeOver1.setLayout(panelmakeOver1Layout);
         panelmakeOver1Layout.setHorizontalGroup(
             panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelmakeOver1Layout.createSequentialGroup()
+            .addGroup(panelmakeOver1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelmakeOver1Layout.createSequentialGroup()
+                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelmakeOver1Layout.createSequentialGroup()
                         .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(buttonMakeOver6, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                                .addComponent(buttonMakeOver2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(buttonMakeOver3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnInputData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(buttonMakeOver3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnInputData, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                            .addComponent(buttonMakeOver6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         panelmakeOver1Layout.setVerticalGroup(
             panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelmakeOver1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnInputData, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(1, 1, 1)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelmakeOver1Layout.createSequentialGroup()
-                        .addComponent(buttonMakeOver2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnInputData, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonMakeOver6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonMakeOver3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,9 +109,7 @@ public class MenuUtama extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelmakeOver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelmakeOver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -129,13 +121,12 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInputDataActionPerformed
 
     private void buttonMakeOver6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver6ActionPerformed
-        // TODO add your handling code here:
+        new Utama().tampilProses();
     }//GEN-LAST:event_buttonMakeOver6ActionPerformed
 
     private void buttonMakeOver3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver3ActionPerformed
         this.dispose();
-        new FormLogin(new javax.swing.JFrame(), true).setVisible(true);
-        
+        new Utama().tampilMenuLogin();
     }//GEN-LAST:event_buttonMakeOver3ActionPerformed
 
     /**
@@ -151,11 +142,11 @@ public class MenuUtama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private komponenMakeOver.buttonMakeOver btnInputData;
-    private komponenMakeOver.buttonMakeOver buttonMakeOver2;
     private komponenMakeOver.buttonMakeOver buttonMakeOver3;
     private komponenMakeOver.buttonMakeOver buttonMakeOver6;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
     private komponenMakeOver.panelmakeOver panelmakeOver1;
     // End of variables declaration//GEN-END:variables
 }
