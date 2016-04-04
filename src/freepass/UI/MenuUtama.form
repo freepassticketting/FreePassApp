@@ -58,7 +58,7 @@
                               <Component id="buttonMakeOver3" alignment="1" max="32767" attributes="1"/>
                           </Group>
                       </Group>
-                      <Component id="buttonMakeOver5" alignment="0" max="32767" attributes="1"/>
+                      <Component id="btnInputData" alignment="0" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -70,7 +70,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonMakeOver5" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="btnInputData" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -100,7 +100,7 @@
             <Property name="text" type="java.lang.String" value="Detail Karyawan"/>
           </Properties>
         </Component>
-        <Component class="komponenMakeOver.buttonMakeOver" name="buttonMakeOver5">
+        <Component class="komponenMakeOver.buttonMakeOver" name="btnInputData">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -111,7 +111,7 @@
             <Property name="text" type="java.lang.String" value="Input Data Karyawan"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeOver5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInputDataActionPerformed"/>
           </Events>
         </Component>
         <Component class="komponenMakeOver.buttonMakeOver" name="buttonMakeOver6">
@@ -148,7 +148,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/exit.png"/>
+              <Image iconType="3" name="/freepass/img/exit.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Keluar (Logout)"/>
           </Properties>

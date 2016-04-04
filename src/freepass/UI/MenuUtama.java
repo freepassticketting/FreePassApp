@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
-import UI.Login;
+package freepass.UI;
+import freepass.dialog.FormLogin;
+import freepass.dialog.addKaryawan;
 /**
  *
  * @author nufail
  */
-public class Utama extends javax.swing.JFrame {
-    public Utama() {
+public class MenuUtama extends javax.swing.JFrame {
+
+    public MenuUtama() {
         initComponents();
     }
 
@@ -20,7 +22,7 @@ public class Utama extends javax.swing.JFrame {
 
         panelmakeOver1 = new komponenMakeOver.panelmakeOver();
         buttonMakeOver2 = new komponenMakeOver.buttonMakeOver();
-        buttonMakeOver5 = new komponenMakeOver.buttonMakeOver();
+        btnInputData = new komponenMakeOver.buttonMakeOver();
         buttonMakeOver6 = new komponenMakeOver.buttonMakeOver();
         jLabel1 = new javax.swing.JLabel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
@@ -34,12 +36,12 @@ public class Utama extends javax.swing.JFrame {
         buttonMakeOver2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/computer.png"))); // NOI18N
         buttonMakeOver2.setText("Detail Karyawan");
 
-        buttonMakeOver5.setForeground(new java.awt.Color(255, 255, 255));
-        buttonMakeOver5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/male_user.png"))); // NOI18N
-        buttonMakeOver5.setText("Input Data Karyawan");
-        buttonMakeOver5.addActionListener(new java.awt.event.ActionListener() {
+        btnInputData.setForeground(new java.awt.Color(255, 255, 255));
+        btnInputData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/male_user.png"))); // NOI18N
+        btnInputData.setText("Input Data Karyawan");
+        btnInputData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMakeOver5ActionPerformed(evt);
+                btnInputDataActionPerformed(evt);
             }
         });
 
@@ -58,7 +60,7 @@ public class Utama extends javax.swing.JFrame {
         jLabel1.setText("SAYGON FREEPASS APP");
 
         buttonMakeOver3.setForeground(new java.awt.Color(255, 255, 255));
-        buttonMakeOver3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
+        buttonMakeOver3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/exit.png"))); // NOI18N
         buttonMakeOver3.setText("Keluar (Logout)");
         buttonMakeOver3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +84,7 @@ public class Utama extends javax.swing.JFrame {
                                 .addComponent(buttonMakeOver6, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                                 .addComponent(buttonMakeOver2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(buttonMakeOver3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(buttonMakeOver5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnInputData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelmakeOver1Layout.setVerticalGroup(
@@ -91,7 +93,7 @@ public class Utama extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonMakeOver5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInputData, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelmakeOver1Layout.createSequentialGroup()
@@ -122,58 +124,35 @@ public class Utama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonMakeOver5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonMakeOver5ActionPerformed
+    private void btnInputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputDataActionPerformed
+        new addKaryawan(new javax.swing.JFrame(), true).setVisible(true);
+    }//GEN-LAST:event_btnInputDataActionPerformed
 
     private void buttonMakeOver6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonMakeOver6ActionPerformed
 
     private void buttonMakeOver3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver3ActionPerformed
-        new Login().setVisible(true);
         this.dispose();
+        new FormLogin(new javax.swing.JFrame(), true).setVisible(true);
+        
     }//GEN-LAST:event_buttonMakeOver3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Utama().setVisible(true);
+                new MenuUtama().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private komponenMakeOver.buttonMakeOver btnInputData;
     private komponenMakeOver.buttonMakeOver buttonMakeOver2;
     private komponenMakeOver.buttonMakeOver buttonMakeOver3;
-    private komponenMakeOver.buttonMakeOver buttonMakeOver5;
     private komponenMakeOver.buttonMakeOver buttonMakeOver6;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
