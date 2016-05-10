@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package freepass.dialog;
-import freepass.Utama;
-import freepass.tools.Koneksi;
-import freepass.tools.ListTableModel;
+package freepass.tampilan;
+import freepass.control.Utama;
+import freepass.control.konek;
+import freepass.control.ListTableModel;
 import java.sql.*;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -22,7 +22,7 @@ public class addKaryawan extends javax.swing.JDialog {
     private void GetData(){
         String sql = "SELECT id_Karyawan as 'ID',Nama, Jabatan, Gender as 'L/P', NIK, No_Telp as 'No. HP', Alamat FROM tb_karyawan";
         try {
-            Connection con = Koneksi.getInstance().getKoneksi();
+            Connection con = konek.getInstance().getKoneksi();
             Statement sttm = con.createStatement();
             ResultSet rs = sttm.executeQuery(sql);
             /*ListTableModel model = ListTableModel
@@ -181,21 +181,20 @@ public class addKaryawan extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtJabatan))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNamaKaryawan))
+                                        .addComponent(txtNamaKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtIDKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
+                                        .addComponent(txtIDKaryawan)))
+                                .addGap(18, 18, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
@@ -298,7 +297,7 @@ public class addKaryawan extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -317,7 +316,9 @@ public class addKaryawan extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -325,9 +326,9 @@ public class addKaryawan extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -361,7 +362,7 @@ public class addKaryawan extends javax.swing.JDialog {
                     ")";
             System.out.println(sql);
             try {
-                Connection con = Koneksi.getInstance().getKoneksi();
+                Connection con = konek.getInstance().getKoneksi();
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(sql);   
                 JOptionPane.showMessageDialog(this, "Data Berhasil Disimpan....");
@@ -381,7 +382,7 @@ public class addKaryawan extends javax.swing.JDialog {
                     "`NIK` = '"+txtNIK.getText()+"'"+
                     " WHERE `tb_karyawan`.`id_Karyawan` = '"+txtIDKaryawan.getText()+"'";
             try {
-                Connection con = Koneksi.getInstance().getKoneksi();
+                Connection con = konek.getInstance().getKoneksi();
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(sql);   
                 JOptionPane.showMessageDialog(this, "Data Berhasil Dirubah....");
@@ -400,7 +401,7 @@ public class addKaryawan extends javax.swing.JDialog {
         String tabel_klik=tbDataKaryawan.getModel().getValueAt(row, 0).toString();
         String sql = "SELECT * from tb_karyawan WHERE id_Karyawan = '"+tabel_klik+"'";
         try {
-            Connection con = Koneksi.getInstance().getKoneksi();
+            Connection con = konek.getInstance().getKoneksi();
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             if(res.next()){
@@ -428,7 +429,7 @@ public class addKaryawan extends javax.swing.JDialog {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             String sql="DELETE from tb_karyawan WHERE id_Karyawan='"+txtIDKaryawan.getText()+"'";
-            Connection con = Koneksi.getInstance().getKoneksi();
+            Connection con = konek.getInstance().getKoneksi();
             PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus....");

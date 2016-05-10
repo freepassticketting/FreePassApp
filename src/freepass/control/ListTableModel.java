@@ -1,4 +1,4 @@
-package freepass.tools;
+package freepass.control;
 
 import java.util.*;
 import java.sql.*;

@@ -1,4 +1,4 @@
-package freepass.tools;
+package freepass.control;
 
 import java.lang.reflect.*;
 import java.util.*;
