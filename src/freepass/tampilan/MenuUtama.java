@@ -33,7 +33,7 @@ public class MenuUtama extends javax.swing.JFrame {
 
         btnInputData.setForeground(new java.awt.Color(255, 255, 255));
         btnInputData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/male_user.png"))); // NOI18N
-        btnInputData.setText("Absensi (Client)");
+        btnInputData.setText("Presensi (Client)");
         btnInputData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInputDataActionPerformed(evt);
@@ -113,6 +113,7 @@ public class MenuUtama extends javax.swing.JFrame {
 
     private void btnInputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputDataActionPerformed
         new Utama().tampilFrmAbsensiClient();
+        this.setVisible(false);
     }//GEN-LAST:event_btnInputDataActionPerformed
 
     private void buttonMakeOver6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver6ActionPerformed

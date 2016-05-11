@@ -4,12 +4,16 @@
  */
 package freepass.tampilan;
 
-import freepass.control.Submit_hadir;
-import freepass.model.Pegawe;
+import freepass.model.Submit_hadir;
+import freepass.control.Pegawe;
+import freepass.control.Utama;
+import freepass.tools.Koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,14 +21,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import net.proteanit.sql.DbUtils;
 
 public class AbsensiPegawai extends javax.swing.JFrame {
     private List<Pegawe> ambil = new ArrayList<Pegawe>();    
     public AbsensiPegawai() {
         initComponents();
         setWaktu();
+        new Submit_hadir().Data2Table(jTable1);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,16 +44,19 @@ public class AbsensiPegawai extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        rdKeluar = new javax.swing.JRadioButton();
-        rdMasuk = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtNIP = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        lblJudul = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         lblTanggal = new javax.swing.JLabel();
         lblJam = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        rdMasuk = new javax.swing.JRadioButton();
+        rdKeluar = new javax.swing.JRadioButton();
+        panelmakeOver1 = new komponenMakeOver.panelmakeOver();
+        lblJudul = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login Admin");
@@ -58,19 +69,6 @@ public class AbsensiPegawai extends javax.swing.JFrame {
         setUndecorated(true);
         setOpacity(0.95F);
         setResizable(false);
-
-        buttonGroup1.add(rdKeluar);
-        rdKeluar.setText("Absen Keluar");
-
-        buttonGroup1.add(rdMasuk);
-        rdMasuk.setText("Absen Masuk");
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/exit.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Masukkan NIP. :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -85,7 +83,7 @@ public class AbsensiPegawai extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(txtNIP, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+            .add(txtNIP, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -94,24 +92,28 @@ public class AbsensiPegawai extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Info Absen"));
 
-        jPanel3.setBackground(new java.awt.Color(0, 21, 132));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nama", "Jam Masuk", "Jam Keluar"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
-        lblJudul.setFont(new java.awt.Font("Swis721 BlkCn BT", 2, 24)); // NOI18N
-        lblJudul.setForeground(new java.awt.Color(255, 255, 255));
-        lblJudul.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/customers.png"))); // NOI18N
-        lblJudul.setText("Absensi Pegawai");
-
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(10, 10, 10)
-                .add(lblJudul, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jScrollPane1)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(lblJudul)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
         );
 
         lblTanggal.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
@@ -122,60 +124,105 @@ public class AbsensiPegawai extends javax.swing.JFrame {
         lblJam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/IconClock.png"))); // NOI18N
         lblJam.setText("07 : 08 : 55");
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Absensi"));
+
+        buttonGroup1.add(rdMasuk);
+        rdMasuk.setText("Check In");
+
+        buttonGroup1.add(rdKeluar);
+        rdKeluar.setText("Check Out");
+
+        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(rdMasuk)
+                    .add(rdKeluar))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .add(rdMasuk)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(rdKeluar)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblJudul.setFont(new java.awt.Font("Swis721 BlkCn BT", 2, 24)); // NOI18N
+        lblJudul.setForeground(new java.awt.Color(255, 255, 255));
+        lblJudul.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/customers.png"))); // NOI18N
+        lblJudul.setText("Absensi Pegawai");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/exit.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout panelmakeOver1Layout = new org.jdesktop.layout.GroupLayout(panelmakeOver1);
+        panelmakeOver1.setLayout(panelmakeOver1Layout);
+        panelmakeOver1Layout.setHorizontalGroup(
+            panelmakeOver1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(panelmakeOver1Layout.createSequentialGroup()
+                .add(lblJudul, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(30, 30, 30))
+        );
+        panelmakeOver1Layout.setVerticalGroup(
+            panelmakeOver1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .add(lblJudul, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(10, 10, 10)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(rdMasuk)
-                            .add(rdKeluar))
-                        .add(42, 42, 42)
+                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(lblTanggal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(lblJam, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .add(layout.createSequentialGroup()
-                        .add(580, 580, 580)
-                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(lblTanggal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .add(lblJam, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .add(panelmakeOver1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(panelmakeOver1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(layout.createSequentialGroup()
-                        .add(rdMasuk)
-                        .add(7, 7, 7)
-                        .add(rdKeluar))
                     .add(layout.createSequentialGroup()
                         .add(lblTanggal)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblJam)))
+                        .add(lblJam))
+                    .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 230, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(10, 10, 10)
-                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
+        new Utama().tampilMenuUtama();
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtNIPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNIPKeyReleased
@@ -223,28 +270,27 @@ public class AbsensiPegawai extends javax.swing.JFrame {
                         long ks = waktu[3].getTime();
                         status_hadir = kehadiran.cek_kehadiran(pegawai);
                         
-                        //Masuk berhasil
+                        //Absen Masuk
                         if(rdMasuk.isSelected()){
                             if(lj >= mm  && lj <= tg && status_hadir){
                                 kehadiran.masuk(pegawai.getNIP());
                                 JOptionPane.showMessageDialog(rootPane, data[0] + " ("+data[1]+")\nBerhasil masuk", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                                 txtNIP.requestFocus();
+                                kehadiran.Data2Table(jTable1);
                             }
                             if(!(lj >= mm  && lj <= tg )){
-                                JOptionPane.showMessageDialog(rootPane, "<error> Anda tidak dipekenankan masuk, \nWaktu cek in sudah habis...\nWaktu Cekin : "+waktu[0]+" s/d "+waktu[1], "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(rootPane, "<error> Anda tidak dipekenankan masuk, \nWaktu cek in sudah habis...\nWaktu Cekin : "+waktu[0]+" s/d "+waktu[1], "Error", JOptionPane.INFORMATION_MESSAGE);
                                 txtNIP.requestFocus();
                             }else if(!status_hadir){
-                                JOptionPane.showMessageDialog(rootPane, "<error> Anda sudah melakukan masuk (cek in) sebelumnya!!", "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(rootPane, "<error> Anda sudah melakukan masuk (cek in) sebelumnya!!", "Error", JOptionPane.INFORMATION_MESSAGE);
                                 txtNIP.requestFocus();
                             }
-                        }
-                        
-                        //Absen Keluar
-                        if(rdKeluar.isSelected()){
+                        }else if(rdKeluar.isSelected()){
                             if(!status_hadir && mk <= lj && lj <= ks){
                                 kehadiran.keluar(pegawai.getNIP());
                                 JOptionPane.showMessageDialog(rootPane, data[0] + " ("+data[1]+")\nBerhasil Keluar (Cek Out)", "Berhasil", JOptionPane.INFORMATION_MESSAGE);
                                 txtNIP.requestFocus();
+                                kehadiran.Data2Table(jTable1);
                             }
                             if(status_hadir){
                                 JOptionPane.showMessageDialog(rootPane, "<error> Anda belum melakukan masuk (cek in) sebelumnya!!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -254,6 +300,9 @@ public class AbsensiPegawai extends javax.swing.JFrame {
                                 txtNIP.requestFocus();
                             }
                         }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "<error> Anda belum memilih jenis absen keluar/masuk !!", "Error", JOptionPane.ERROR_MESSAGE);
+                        rdMasuk.requestFocus();
                     }
                 }catch(SQLException ex){
                     JOptionPane.showMessageDialog(rootPane, "<error>Kesalahan pada Database !!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -277,10 +326,13 @@ public class AbsensiPegawai extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblJam;
     private javax.swing.JLabel lblJudul;
     private javax.swing.JLabel lblTanggal;
+    private komponenMakeOver.panelmakeOver panelmakeOver1;
     private javax.swing.JRadioButton rdKeluar;
     private javax.swing.JRadioButton rdMasuk;
     private javax.swing.JTextField txtNIP;

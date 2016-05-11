@@ -5,8 +5,8 @@
  */
 package freepass.tampilan;
 import freepass.control.Utama;
-import freepass.control.konek;
-import freepass.control.ListTableModel;
+import freepass.tools.Koneksi;
+import freepass.tools.ListTableModel;
 import java.sql.*;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -22,7 +22,7 @@ public class addKaryawan extends javax.swing.JDialog {
     private void GetData(){
         String sql = "SELECT id_Karyawan as 'ID',Nama, Jabatan, Gender as 'L/P', NIK, No_Telp as 'No. HP', Alamat FROM tb_karyawan";
         try {
-            Connection con = konek.getInstance().getKoneksi();
+            Connection con = Koneksi.getInstance().getKoneksi();
             Statement sttm = con.createStatement();
             ResultSet rs = sttm.executeQuery(sql);
             /*ListTableModel model = ListTableModel
@@ -362,7 +362,7 @@ public class addKaryawan extends javax.swing.JDialog {
                     ")";
             System.out.println(sql);
             try {
-                Connection con = konek.getInstance().getKoneksi();
+                Connection con = Koneksi.getInstance().getKoneksi();
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(sql);   
                 JOptionPane.showMessageDialog(this, "Data Berhasil Disimpan....");
@@ -382,7 +382,7 @@ public class addKaryawan extends javax.swing.JDialog {
                     "`NIK` = '"+txtNIK.getText()+"'"+
                     " WHERE `tb_karyawan`.`id_Karyawan` = '"+txtIDKaryawan.getText()+"'";
             try {
-                Connection con = konek.getInstance().getKoneksi();
+                Connection con = Koneksi.getInstance().getKoneksi();
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(sql);   
                 JOptionPane.showMessageDialog(this, "Data Berhasil Dirubah....");
@@ -401,7 +401,7 @@ public class addKaryawan extends javax.swing.JDialog {
         String tabel_klik=tbDataKaryawan.getModel().getValueAt(row, 0).toString();
         String sql = "SELECT * from tb_karyawan WHERE id_Karyawan = '"+tabel_klik+"'";
         try {
-            Connection con = konek.getInstance().getKoneksi();
+            Connection con = Koneksi.getInstance().getKoneksi();
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             if(res.next()){
@@ -429,7 +429,7 @@ public class addKaryawan extends javax.swing.JDialog {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             String sql="DELETE from tb_karyawan WHERE id_Karyawan='"+txtIDKaryawan.getText()+"'";
-            Connection con = konek.getInstance().getKoneksi();
+            Connection con = Koneksi.getInstance().getKoneksi();
             PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus....");

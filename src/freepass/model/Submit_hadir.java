@@ -2,29 +2,47 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package freepass.control;
+package freepass.model;
 
-import freepass.model.Pegawe;
+import freepass.control.Pegawe;
+import freepass.tools.Koneksi;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author Dendi
  */
 public class Submit_hadir {
-    
     Pegawe pg = new Pegawe();
-    
+    //Menampilkan data ke tabel setiap kali karyawan absen
+    public void Data2Table(JTable Tabel){
+        String sql = "SELECT * FROM VwCekinsukses";
+        try {
+            Connection con = Koneksi.getInstance().getKoneksi();
+            Statement sttm = con.createStatement();
+            ResultSet rs = sttm.executeQuery(sql);
+            /*ListTableModel model = ListTableModel
+                    .createModelFromResultSet(rs);
+            tbDataKaryawan.setModel(model);*/
+            Tabel.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(Submit_hadir.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public boolean cek_pegawai(Pegawe karyawan) throws SQLException {
-        String cek = "SELECT * from tbKaryawan where idKaryawan = ?";
-        PreparedStatement pst;
-        pst = konek.getKoneksi().prepareStatement(cek);
+        String sql = "SELECT * from tbKaryawan where idKaryawan = ?";
+        PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(sql);
         pst.setString(1, karyawan.getNIP());
         ResultSet rs;
         rs = pst.executeQuery();
@@ -34,7 +52,7 @@ public class Submit_hadir {
         
    public boolean cek_kehadiran(Pegawe karyawan) throws SQLException {
         String cek = "SELECT * from tbKehadiran where idpegawai=? and tanggal=curdate()";
-        PreparedStatement pst = konek.getKoneksi().prepareStatement(cek);
+        PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(cek);
         pst.setString(1, karyawan.getNIP());
         ResultSet rs;
         rs = pst.executeQuery();
@@ -44,7 +62,7 @@ public class Submit_hadir {
    
    public boolean cek_jamMasuk(Pegawe karyawan) throws SQLException {
         String cek = "SELECT  from tbKaryawan where idKaryawan=?";
-        PreparedStatement pst = konek.getKoneksi().prepareStatement(cek);
+        PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(cek);
         pst.setString(1, karyawan.getNIP());
         ResultSet rs;
         rs = pst.executeQuery();
@@ -60,7 +78,7 @@ public class Submit_hadir {
                 + "FROM tbKaryawan, tbJabatan, tbJam WHERE tbKaryawan.idKaryawan = ? "
                 + "and tbJam.id_jam = tbKaryawan.JamKerja and tbKaryawan.jabatan = tbJabatan.idjabatan "
                 + "group by idKaryawan";
-        PreparedStatement pst = konek.getKoneksi().prepareStatement(cek);
+        PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(cek);
         pst.setString(1, karyawan.getNIP());
         ResultSet rs;
         rs = pst.executeQuery();
@@ -84,7 +102,7 @@ public class Submit_hadir {
     
     public void masuk(String nip) throws SQLException {
         String hadir = "INSERT INTO tbKehadiran(idpegawai, tanggal, jmasuk, jkeluar, id_jam) VALUES( ?, CURDATE(), CURTIME(), ?, ?)";
-        PreparedStatement pst = konek.getKoneksi().prepareStatement(hadir);
+        PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(hadir);
         pst.setString(1, nip);
         pst.setTime(2, pg.getKeluarEnd());
         pst.setString(3, pg.getId_Jam());
@@ -93,7 +111,7 @@ public class Submit_hadir {
         
     public void keluar(String nip) throws SQLException {
         String cek = "UPDATE tbKehadiran SET jkeluar=CURTIME() WHERE idpegawai=? and tanggal=curdate()";
-        PreparedStatement pst = konek.getKoneksi().prepareStatement(cek);
+        PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(cek);
         pst.setString(1, nip);       
         pst.executeUpdate();       
     }
