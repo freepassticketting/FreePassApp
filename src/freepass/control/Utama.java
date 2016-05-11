@@ -15,16 +15,20 @@ public class Utama {
     }
 
     public void tampilMenuLogin() {
-        new FrmLogin(new javax.swing.JFrame(), true).setVisible(true);
+        //new FrmLogin(new javax.swing.JFrame(), true).setVisible(true);
+        new FrmLogin().setVisible(true);
     }
 
     public void tampilMenuUtama() {
         new MenuUtama().setVisible(true);
     }
     public void tampilProses() {
-        new FrmProses().setVisible(true);
+        new FrmFreePassing().setVisible(true);
     }
     public void tampilFrmAbsensiClient(){
         new AbsensiPegawai().setVisible(true);
+    }
+    public void tampilFrmAbsensiAdmin(){
+        new AbsensiAdmin().setVisible(true);
     }
 }

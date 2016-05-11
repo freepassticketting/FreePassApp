@@ -113,7 +113,7 @@ public class MenuUtama extends javax.swing.JFrame {
 
     private void btnInputDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputDataActionPerformed
         new Utama().tampilFrmAbsensiClient();
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnInputDataActionPerformed
 
     private void buttonMakeOver6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver6ActionPerformed
@@ -121,7 +121,8 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonMakeOver6ActionPerformed
 
     private void btnInputData2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputData2ActionPerformed
-        // TODO add your handling code here:
+        new Utama().tampilMenuLogin();
+        this.dispose();
     }//GEN-LAST:event_btnInputData2ActionPerformed
 
     /**

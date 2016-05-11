@@ -7,6 +7,7 @@ package freepass.tampilan;
 import freepass.model.Submit_hadir;
 import freepass.control.Pegawe;
 import freepass.control.Utama;
+import freepass.model.ManajDashboard;
 import freepass.tools.Koneksi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +33,7 @@ public class AbsensiPegawai extends javax.swing.JFrame {
     public AbsensiPegawai() {
         initComponents();
         setWaktu();
-        new Submit_hadir().Data2Table(jTable1);
+        loadDataDasbor();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +95,12 @@ public class AbsensiPegawai extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -172,7 +179,7 @@ public class AbsensiPegawai extends javax.swing.JFrame {
                 .add(lblJudul, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 210, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(30, 30, 30))
+                .addContainerGap())
         );
         panelmakeOver1Layout.setVerticalGroup(
             panelmakeOver1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -222,7 +229,7 @@ public class AbsensiPegawai extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Utama().tampilMenuUtama();
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtNIPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNIPKeyReleased
@@ -349,5 +356,9 @@ public class AbsensiPegawai extends javax.swing.JFrame {
             }
         });
         timer.start();
+    }
+
+    private void loadDataDasbor() {
+        new ManajDashboard().loadData2Tabel(jTable1);
     }
 }
