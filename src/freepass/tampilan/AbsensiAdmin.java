@@ -41,16 +41,17 @@ public class AbsensiAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         Dashboard = new javax.swing.JPanel();
+        InfoAbsen = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelRekap = new javax.swing.JTable();
+        panelmakeOver2 = new komponenMakeOver.panelmakeOver();
+        jLabel1 = new javax.swing.JLabel();
         panelmakeOver1 = new komponenMakeOver.panelmakeOver();
         jLabel10 = new javax.swing.JLabel();
         lblProsentaseKehadiran = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblJmPegawai = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        panelmakeOver2 = new komponenMakeOver.panelmakeOver();
-        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -58,7 +59,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manajemen Karyawan");
 
-        Dashboard.setBorder(javax.swing.BorderFactory.createTitledBorder("Info Absen"));
+        InfoAbsen.setBorder(javax.swing.BorderFactory.createTitledBorder("Info Absen"));
 
         TabelRekap.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,15 +80,37 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TabelRekap);
 
-        javax.swing.GroupLayout DashboardLayout = new javax.swing.GroupLayout(Dashboard);
-        Dashboard.setLayout(DashboardLayout);
-        DashboardLayout.setHorizontalGroup(
-            DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+        javax.swing.GroupLayout InfoAbsenLayout = new javax.swing.GroupLayout(InfoAbsen);
+        InfoAbsen.setLayout(InfoAbsenLayout);
+        InfoAbsenLayout.setHorizontalGroup(
+            InfoAbsenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
         );
-        DashboardLayout.setVerticalGroup(
-            DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        InfoAbsenLayout.setVerticalGroup(
+            InfoAbsenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InfoAbsenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel1.setFont(new java.awt.Font("Swis721 WGL4 BT", 3, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/customers.png"))); // NOI18N
+        jLabel1.setText(" Rekapitulasi Presensi Karyawan");
+
+        javax.swing.GroupLayout panelmakeOver2Layout = new javax.swing.GroupLayout(panelmakeOver2);
+        panelmakeOver2.setLayout(panelmakeOver2Layout);
+        panelmakeOver2Layout.setHorizontalGroup(
+            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelmakeOver2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelmakeOver2Layout.setVerticalGroup(
+            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
@@ -148,22 +171,26 @@ public class AbsensiAdmin extends javax.swing.JFrame {
                 .addGap(0, 140, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Swis721 WGL4 BT", 3, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/customers.png"))); // NOI18N
-        jLabel1.setText(" Rekapitulasi Presensi Karyawan");
-
-        javax.swing.GroupLayout panelmakeOver2Layout = new javax.swing.GroupLayout(panelmakeOver2);
-        panelmakeOver2.setLayout(panelmakeOver2Layout);
-        panelmakeOver2Layout.setHorizontalGroup(
-            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelmakeOver2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+        javax.swing.GroupLayout DashboardLayout = new javax.swing.GroupLayout(Dashboard);
+        Dashboard.setLayout(DashboardLayout);
+        DashboardLayout.setHorizontalGroup(
+            DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DashboardLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(InfoAbsen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelmakeOver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panelmakeOver2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        panelmakeOver2Layout.setVerticalGroup(
-            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        DashboardLayout.setVerticalGroup(
+            DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DashboardLayout.createSequentialGroup()
+                .addComponent(panelmakeOver2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(InfoAbsen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelmakeOver1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jMenu1.setText("File");
@@ -178,22 +205,11 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelmakeOver1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(panelmakeOver2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelmakeOver2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelmakeOver1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(Dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -237,6 +253,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Dashboard;
+    private javax.swing.JPanel InfoAbsen;
     private javax.swing.JTable TabelRekap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
