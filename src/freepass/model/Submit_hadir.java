@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package freepass.model;
 
 import freepass.control.Pegawe;
@@ -11,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,10 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author Dendi
- */
 public class Submit_hadir {
     Pegawe pg = new Pegawe();
     //Menampilkan data ke tabel setiap kali karyawan absen
