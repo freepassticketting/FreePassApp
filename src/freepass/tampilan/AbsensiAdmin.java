@@ -6,6 +6,7 @@
 package freepass.tampilan;
 
 import freepass.control.ControlAbsensi;
+import freepass.control.ControlKaryawan;
 import freepass.model.ManajDashboard;
 import freepass.model.ManajAbsensi;
 import freepass.model.ManajKaryawan;
@@ -523,7 +524,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
 
         pgTxtNama.setEnabled(false);
 
-        pgCmbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manajer Pemasaran", "Manajer IT", "Manajer Keuangan", "Manajer HRD", "Manajer Produksi", "Staf Pemasaran", "Staf IT", "Staf Keuangan", "Staf HRD", "Staf Produksi", "Office Boy", "Office Girl" }));
+        pgCmbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manajer Pemasaran", "Manajer IT", "Manajer Keuangan", "Manajer HRD", "Manajer Produksi", "Staff Pemasaran", "Staff IT", "Staff Keuangan", "Staff HRD", "Staff Produksi", "Office Boy", "Office Girl" }));
         pgCmbJabatan.setSelectedIndex(-1);
         pgCmbJabatan.setEnabled(false);
 
@@ -702,8 +703,8 @@ public class AbsensiAdmin extends javax.swing.JFrame {
                             .addComponent(pgTxtNoPe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)))
+                            .addComponent(jLabel8)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelPegawaiLayout.createSequentialGroup()
                         .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -964,20 +965,121 @@ public class AbsensiAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_pgBtnTambahActionPerformed
 
     private void pgBtnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnUbahActionPerformed
-        // TODO add your handling code here:
+        PgBaru=false;
+        setTextEnable2();
+        pgBtnSimpan.setEnabled(true);
+        pgBtnTambah.setEnabled(false);
+        pgBtnUbah.setEnabled(false);
+        pgBtnHapus.setEnabled(false);
     }//GEN-LAST:event_pgBtnUbahActionPerformed
 
     private void pgBtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnHapusActionPerformed
-        // TODO add your handling code here:
+        int row = pgTabelData.getSelectedRow();
+        String Nip = (String)pgTabelData.getValueAt(row, 0);
+        try {
+            new ManajKaryawan().hapusKaryawan(Nip);
+            finalDataKaryawan();
+            JOptionPane.showMessageDialog(rootPane, "Data NIP : "+Nip+" berhasil dihapus", "Berhasil menghapus data",JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AbsensiAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan pada Database","Gagal Delete",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_pgBtnHapusActionPerformed
 
     private void pgBtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnSimpanActionPerformed
-        String NIP,alamat,nama,nope,jabatan,JamKer,gender;
-        
+        String nip,alamat,nama,NoTelp,jabatan,shift_pegawai,gender;
+        nip     = pgTxtNIP.getText();
+        alamat  = pgTxtAlamat.getText();
+        nama    = pgTxtNama.getText();
+        NoTelp    = pgTxtNoPe.getText();
+        switch(pgCmbGender.getSelectedIndex()){
+            case 0  : gender = "L"; break;
+            case 1  : gender = "P"; break;
+            default : gender = ""; break;
+        }
+        switch(pgCmbJabatan.getSelectedIndex()){
+            case 0: jabatan = "B01"; break;
+            case 1: jabatan = "B02"; break;
+            case 2: jabatan = "B03"; break;
+            case 3: jabatan = "C01"; break;
+            case 4: jabatan = "C02"; break;
+            case 5: jabatan = "C03"; break;
+            case 6: jabatan = "C04"; break;
+            case 7: jabatan = "D01"; break;
+            case 8: jabatan = "D02"; break;
+            default:jabatan = "";break;
+        }
+        switch(pgCmbJamKerja.getSelectedIndex()){
+           case 0: shift_pegawai = "1"; break;
+           case 1: shift_pegawai = "2"; break;
+           case 2: shift_pegawai = "3"; break;
+           case 3: shift_pegawai = "D"; break; 
+           default:shift_pegawai = "";break;
+        }
+        if(alamat.equals("") | nip.equals("") | nama.equals("")
+            | NoTelp.equals("") | pgCmbGender.getSelectedIndex()<0 | pgCmbJabatan.getSelectedIndex()<0 |
+            pgCmbJamKerja.getSelectedIndex()<0){
+            JOptionPane.showMessageDialog(rootPane, "Harap isi semua field");
+        }else{
+            ControlKaryawan ctrpg = new ControlKaryawan();
+            ctrpg.setNama(nama);
+            ctrpg.setNIP(nip);
+            ctrpg.setAlamat(alamat);
+            ctrpg.setNoTelp(NoTelp);
+            ctrpg.setGender(gender);
+            ctrpg.setId_Jam(shift_pegawai);
+            ctrpg.setJabatan(jabatan);
+            
+            ManajKaryawan manka = new ManajKaryawan();
+            try {
+                if(PgBaru){
+                    if(manka.cekPegawai(ctrpg)){
+                        int konfirmasiUbah = JOptionPane.showConfirmDialog(rootPane, "Data dengan NIP :"+ctrpg.getNIP()+" sudah ada !\nYakin ubah data pegawai ? ","Ubah Data Pegawai", JOptionPane.YES_NO_OPTION);
+                        if(konfirmasiUbah==JOptionPane.YES_OPTION){
+                            manka.updatePegawai(ctrpg);
+                            JOptionPane.showMessageDialog(rootPane, "Data berhasil diupdate", "Berhasil Mengupdate Data",JOptionPane.INFORMATION_MESSAGE);
+                            finalDataKaryawan();
+                        }
+                    }else{
+                        manka.tambahPegawai(ctrpg);
+                        JOptionPane.showMessageDialog(rootPane, "Data berhasil ditambahkan", "Berhasil Menambahkan Dambahkan",JOptionPane.INFORMATION_MESSAGE);
+                        finalDataKaryawan();
+                    }
+                }else{
+                    manka.updatePegawai(ctrpg);
+                    JOptionPane.showMessageDialog(rootPane, "Data berhasil diupdate", "Berhasil Mengupdate Data",JOptionPane.INFORMATION_MESSAGE);
+                    finalDataKaryawan();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AbsensiAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan pada Database","Kesalahan Database",JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_pgBtnSimpanActionPerformed
 
     private void pgTabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pgTabelDataMouseClicked
-        // TODO add your handling code here:
+        pgBtnUbah.setEnabled(true);
+        pgBtnHapus.setEnabled(true);
+        int row = pgTabelData.getSelectedRow();
+        pgTxtNIP.setText((String) pgTabelData.getValueAt(row, 0));
+        pgTxtNama.setText((String) pgTabelData.getValueAt(row, 1));
+        pgTxtNoPe.setText((String) pgTabelData.getValueAt(row, 5));
+        pgTxtAlamat.setText((String) pgTabelData.getValueAt(row, 6));
+        
+        int slcGender, slcIdJam=-1;
+        slcGender = "L".equals((String)pgTabelData.getValueAt(row, 4))?0:1;
+        pgCmbGender.setSelectedIndex(slcGender);
+        
+        pgCmbJabatan.setSelectedItem((Object)pgTabelData.getValueAt(row, 2));
+        
+        switch((String)pgTabelData.getValueAt(row, 3)){
+            case "1": slcIdJam = 0; break;
+            case "2": slcIdJam = 1; break;
+            case "3": slcIdJam = 2; break;
+            case "D": slcIdJam = 3; break;
+        }
+        pgCmbJamKerja.setSelectedIndex(slcIdJam);
     }//GEN-LAST:event_pgTabelDataMouseClicked
 
     public static void main(String args[]) {
@@ -1165,6 +1267,15 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         pgCmbGender.setEnabled(true);
         pgCmbJabatan.setEnabled(true);
         pgCmbJamKerja.setEnabled(true);
+    }
+
+    private void finalDataKaryawan() {
+        new ManajKaryawan().Data2Table(pgTabelData);
+        setTextDisable2();
+        pgBtnTambah.setEnabled(true);
+        pgBtnSimpan.setEnabled(false);
+        pgBtnUbah.setEnabled(false);
+        pgBtnHapus.setEnabled(false);
     }
 
 }

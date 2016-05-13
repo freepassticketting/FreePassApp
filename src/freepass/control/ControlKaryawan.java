@@ -79,7 +79,6 @@ public class ControlKaryawan {
     public void setGender(String Gender) {
         this.Gender = Gender;
     }
-    
     public void setMasukStart(Time jam){
         this.MasukStart = jam;
     }
