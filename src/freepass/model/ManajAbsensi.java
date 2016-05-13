@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
-public class ManajemenAbsensi {
+public class ManajAbsensi {
     PreparedStatement pst;
     ResultSet rs;
     String sql;
@@ -79,7 +79,7 @@ public class ManajemenAbsensi {
             ResultSet rs = sttm.executeQuery(sql);
             tabel.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException ex) {
-            Logger.getLogger(Submit_hadir.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManajPresensi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void tambahAbsen(ControlAbsensi moda) throws SQLException {

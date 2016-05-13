@@ -7,7 +7,8 @@ package freepass.tampilan;
 
 import freepass.control.ControlAbsensi;
 import freepass.model.ManajDashboard;
-import freepass.model.ManajemenAbsensi;
+import freepass.model.ManajAbsensi;
+import freepass.model.ManajKaryawan;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -26,11 +27,13 @@ import javax.swing.Timer;
  * @author nufail
  */
 public class AbsensiAdmin extends javax.swing.JFrame {
-    public boolean AbsenBaru;
+    private boolean AbsenBaru;
+    private boolean PgBaru;
     public AbsensiAdmin() {
         initComponents();
         loadDashboard();
-        new ManajemenAbsensi().loadData2Tabel(jtabelabsen);
+        new ManajAbsensi().loadData2Tabel(jtabelabsen);
+        new ManajKaryawan().Data2Table(pgTabelData);
         setWaktu();
     }
     @SuppressWarnings("unchecked")
@@ -75,14 +78,38 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jtabelabsen = new javax.swing.JTable();
         PanelPegawai = new javax.swing.JPanel();
+        panelmakeOver4 = new komponenMakeOver.panelmakeOver();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        pgTxtNIP = new javax.swing.JTextField();
+        pgTxtNama = new javax.swing.JTextField();
+        pgCmbJabatan = new javax.swing.JComboBox<>();
+        pgCmbJamKerja = new javax.swing.JComboBox<>();
+        pgCmbGender = new javax.swing.JComboBox<>();
+        pgTxtNoPe = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        pgTxtAlamat = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        pgBtnTambah = new javax.swing.JButton();
+        pgBtnUbah = new javax.swing.JButton();
+        pgBtnHapus = new javax.swing.JButton();
+        pgBtnSimpan = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        pgTabelData = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jmnFile = new javax.swing.JMenu();
+        jmnDashboard = new javax.swing.JMenuItem();
+        jmnReportHarian = new javax.swing.JMenuItem();
+        jmnSparator = new javax.swing.JPopupMenu.Separator();
+        jmnPerizinan = new javax.swing.JMenuItem();
+        jmnManajPegawai = new javax.swing.JMenuItem();
+        jmnAbout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manajemen Karyawan");
@@ -460,7 +487,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
                             .addComponent(btnAbsen_hapus)
                             .addComponent(btnAbsen_simpan))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -470,53 +497,275 @@ public class AbsensiAdmin extends javax.swing.JFrame {
 
         getContentPane().add(PanelIzin, "card3");
 
+        jLabel5.setFont(new java.awt.Font("Swis721 WGL4 BT", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/customers.png"))); // NOI18N
+        jLabel5.setText("  Manajemen Pegawai");
+
+        javax.swing.GroupLayout panelmakeOver4Layout = new javax.swing.GroupLayout(panelmakeOver4);
+        panelmakeOver4.setLayout(panelmakeOver4Layout);
+        panelmakeOver4Layout.setHorizontalGroup(
+            panelmakeOver4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelmakeOver4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(543, Short.MAX_VALUE))
+        );
+        panelmakeOver4Layout.setVerticalGroup(
+            panelmakeOver4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("NIP.");
+
+        pgTxtNIP.setEnabled(false);
+
+        pgTxtNama.setEnabled(false);
+
+        pgCmbJabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manajer Pemasaran", "Manajer IT", "Manajer Keuangan", "Manajer HRD", "Manajer Produksi", "Staf Pemasaran", "Staf IT", "Staf Keuangan", "Staf HRD", "Staf Produksi", "Office Boy", "Office Girl" }));
+        pgCmbJabatan.setSelectedIndex(-1);
+        pgCmbJabatan.setEnabled(false);
+
+        pgCmbJamKerja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08.00 s/d 15.30", "16.00 s/d 23.30", "00.00 s/d 07.30", "08.00 s/d 17.00" }));
+        pgCmbJamKerja.setSelectedIndex(-1);
+        pgCmbJamKerja.setEnabled(false);
+
+        pgCmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
+        pgCmbGender.setSelectedIndex(-1);
+        pgCmbGender.setEnabled(false);
+
+        pgTxtNoPe.setEnabled(false);
+
+        pgTxtAlamat.setColumns(20);
+        pgTxtAlamat.setRows(5);
+        pgTxtAlamat.setEnabled(false);
+        jScrollPane2.setViewportView(pgTxtAlamat);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Nama");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setText("Alamat");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setText("No. Telp");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setText("Gender");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setText("Jabatan");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setText("Jam Kerja");
+
+        pgBtnTambah.setText("Tambah");
+        pgBtnTambah.setMaximumSize(new java.awt.Dimension(67, 28));
+        pgBtnTambah.setMinimumSize(new java.awt.Dimension(67, 28));
+        pgBtnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pgBtnTambahActionPerformed(evt);
+            }
+        });
+
+        pgBtnUbah.setText("Ubah");
+        pgBtnUbah.setEnabled(false);
+        pgBtnUbah.setMaximumSize(new java.awt.Dimension(67, 28));
+        pgBtnUbah.setMinimumSize(new java.awt.Dimension(67, 28));
+        pgBtnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pgBtnUbahActionPerformed(evt);
+            }
+        });
+
+        pgBtnHapus.setText("Hapus");
+        pgBtnHapus.setEnabled(false);
+        pgBtnHapus.setMaximumSize(new java.awt.Dimension(67, 28));
+        pgBtnHapus.setMinimumSize(new java.awt.Dimension(67, 28));
+        pgBtnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pgBtnHapusActionPerformed(evt);
+            }
+        });
+
+        pgBtnSimpan.setText("Simpan");
+        pgBtnSimpan.setEnabled(false);
+        pgBtnSimpan.setMaximumSize(new java.awt.Dimension(67, 28));
+        pgBtnSimpan.setMinimumSize(new java.awt.Dimension(67, 28));
+        pgBtnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pgBtnSimpanActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pgBtnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+            .addComponent(pgBtnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pgBtnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pgBtnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(pgBtnTambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pgBtnUbah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pgBtnHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pgBtnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pgTabelData.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "NIP", "Nama", "Jabatan", "Jam Kerja", "Gender", "No. Telp", "Alamat"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        pgTabelData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pgTabelDataMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(pgTabelData);
+
         javax.swing.GroupLayout PanelPegawaiLayout = new javax.swing.GroupLayout(PanelPegawai);
         PanelPegawai.setLayout(PanelPegawaiLayout);
         PanelPegawaiLayout.setHorizontalGroup(
             PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 789, Short.MAX_VALUE)
+            .addComponent(panelmakeOver4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                                .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(26, 26, 26)
+                                .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pgTxtNama)
+                                    .addComponent(pgTxtNIP)))
+                            .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                                .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(pgCmbJabatan, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(pgCmbJamKerja, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(pgCmbGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(1, 1, 1)))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addComponent(pgTxtNoPe))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6)
+                        .addContainerGap())))
         );
         PanelPegawaiLayout.setVerticalGroup(
             PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                .addComponent(panelmakeOver4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(pgTxtNoPe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)))
+                    .addGroup(PanelPegawaiLayout.createSequentialGroup()
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(pgTxtNIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(pgTxtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(pgCmbJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(pgCmbJamKerja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pgCmbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getContentPane().add(PanelPegawai, "card4");
 
-        jMenu1.setText("File");
+        jmnFile.setText("File");
 
-        jMenuItem1.setText("Rekap Absen All");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmnDashboard.setText("Rekap Absen All");
+        jmnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmnDashboardActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jmnFile.add(jmnDashboard);
 
-        jMenuItem2.setText("Report Absen Harian");
-        jMenu1.add(jMenuItem2);
-        jMenu1.add(jSeparator1);
+        jmnReportHarian.setText("Report Absen Harian");
+        jmnFile.add(jmnReportHarian);
+        jmnFile.add(jmnSparator);
 
-        jMenuItem3.setText("Panel Perizinan/Cuti");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmnPerizinan.setText("Panel Perizinan/Cuti");
+        jmnPerizinan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmnPerizinanActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jmnFile.add(jmnPerizinan);
 
-        jMenuItem4.setText("Manajemen Pegawai");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmnManajPegawai.setText("Manajemen Pegawai");
+        jmnManajPegawai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmnManajPegawaiActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jmnFile.add(jmnManajPegawai);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jmnFile);
 
-        jMenu2.setText("About");
-        jMenuBar1.add(jMenu2);
+        jmnAbout.setText("About");
+        jMenuBar1.add(jmnAbout);
 
         setJMenuBar(jMenuBar1);
 
@@ -537,17 +786,17 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_radAbsen_izinActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmnPerizinanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPerizinanActionPerformed
         Dashboard.setVisible(false);
         PanelPegawai.setVisible(false);
         PanelIzin.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmnPerizinanActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnDashboardActionPerformed
         PanelIzin.setVisible(false);
         PanelPegawai.setVisible(false);
         Dashboard.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmnDashboardActionPerformed
 
     private void btnAbsen_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsen_tambahActionPerformed
         AbsenBaru = true;
@@ -587,7 +836,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
                 int confirmSimpan = JOptionPane.showConfirmDialog(rootPane,"Apakah anda data tersebut sudah benar?","Mengimput data",JOptionPane.YES_NO_OPTION );
                 if(confirmSimpan == JOptionPane.YES_OPTION){
                     try {
-                        ManajemenAbsensi manaAbs = new ManajemenAbsensi();
+                        ManajAbsensi manaAbs = new ManajAbsensi();
                         if(manaAbs.cekPegawai(ctrAbs)==true){
                             if(manaAbs.cekDuplikasi(ctrAbs) == true){
                                 int ubahData = JOptionPane.showConfirmDialog(this, 
@@ -604,7 +853,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
                                        JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan mengubah data","Kesalahan Mengubah data",JOptionPane.ERROR_MESSAGE);
                                         Logger.getLogger(AbsensiAdmin.class.getName()).log(Level.SEVERE, null, ex); 
                                     }finally{
-                                        new ManajemenAbsensi().loadData2Tabel(jtabelabsen);
+                                        new ManajAbsensi().loadData2Tabel(jtabelabsen);
                                     }
                                 }else if(ubahData == JOptionPane.NO_OPTION) setTextDisable();
                             }else{
@@ -631,14 +880,14 @@ public class AbsensiAdmin extends javax.swing.JFrame {
             int No = Integer.parseInt(jtabelabsen.getModel().getValueAt(row, 0).toString());
             ctrAbs.setNo(No);
             try{
-                ManajemenAbsensi manaAbs = new ManajemenAbsensi();
+                ManajAbsensi manaAbs = new ManajAbsensi();
                 manaAbs.ubahAbsen(ctrAbs);  
                 JOptionPane.showMessageDialog(rootPane, "Data berhasil diubah", "Data berhasil diubah",JOptionPane.INFORMATION_MESSAGE);
             }catch(SQLException ex){
                JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan mengubah data","Kesalahan Mengubah data",JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(AbsensiAdmin.class.getName()).log(Level.SEVERE, null, ex); 
             }finally{
-                new ManajemenAbsensi().loadData2Tabel(jtabelabsen);
+                new ManajAbsensi().loadData2Tabel(jtabelabsen);
             }
         }
         setTextDisable();
@@ -685,7 +934,7 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         int konfirmasiHapus = JOptionPane.showConfirmDialog(rootPane, "Apakah anda yakin akan menghapus data absensi tersebut?", "Hapus Pegawai", JOptionPane.YES_NO_OPTION);
         if(konfirmasiHapus == JOptionPane.YES_OPTION){
             try{
-                ManajemenAbsensi manAbs = new ManajemenAbsensi();
+                ManajAbsensi manAbs = new ManajAbsensi();
                 manAbs.hapusPegawai(ctrAbs);
                 JOptionPane.showMessageDialog(rootPane, "Data berhasil dihapus", "Berhasil Menghapus Data",JOptionPane.INFORMATION_MESSAGE);
                 setTextDisable();
@@ -696,16 +945,40 @@ public class AbsensiAdmin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Terjadi kesalahan menghapus data","Kesalahan Menghapus Data",JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(AbsensiAdmin.class.getName()).log(Level.SEVERE, null, ex);
             }finally{
-                new ManajemenAbsensi().loadData2Tabel(jtabelabsen);
+                new ManajAbsensi().loadData2Tabel(jtabelabsen);
             }
         }
     }//GEN-LAST:event_btnAbsen_hapusActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmnManajPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnManajPegawaiActionPerformed
         Dashboard.setVisible(false);
         PanelIzin.setVisible(false);
         PanelPegawai.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jmnManajPegawaiActionPerformed
+
+    private void pgBtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnTambahActionPerformed
+        PgBaru=true;
+        pgBtnTambah.setEnabled(false);
+        pgBtnSimpan.setEnabled(true);
+        setTextEnable2();
+    }//GEN-LAST:event_pgBtnTambahActionPerformed
+
+    private void pgBtnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnUbahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pgBtnUbahActionPerformed
+
+    private void pgBtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnHapusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pgBtnHapusActionPerformed
+
+    private void pgBtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pgBtnSimpanActionPerformed
+        String NIP,alamat,nama,nope,jabatan,JamKer,gender;
+        
+    }//GEN-LAST:event_pgBtnSimpanActionPerformed
+
+    private void pgTabelDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pgTabelDataMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pgTabelDataMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -751,6 +1024,9 @@ public class AbsensiAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnAbsen_ubah;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel32;
@@ -762,16 +1038,24 @@ public class AbsensiAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JMenu jmnAbout;
+    private javax.swing.JMenuItem jmnDashboard;
+    private javax.swing.JMenu jmnFile;
+    private javax.swing.JMenuItem jmnManajPegawai;
+    private javax.swing.JMenuItem jmnPerizinan;
+    private javax.swing.JMenuItem jmnReportHarian;
+    private javax.swing.JPopupMenu.Separator jmnSparator;
     private javax.swing.JTable jtabelabsen;
     private javax.swing.JLabel lblJam;
     private javax.swing.JLabel lblJmPegawai;
@@ -780,6 +1064,19 @@ public class AbsensiAdmin extends javax.swing.JFrame {
     private komponenMakeOver.panelmakeOver panelmakeOver1;
     private komponenMakeOver.panelmakeOver panelmakeOver2;
     private komponenMakeOver.panelmakeOver panelmakeOver3;
+    private komponenMakeOver.panelmakeOver panelmakeOver4;
+    private javax.swing.JButton pgBtnHapus;
+    private javax.swing.JButton pgBtnSimpan;
+    private javax.swing.JButton pgBtnTambah;
+    private javax.swing.JButton pgBtnUbah;
+    private javax.swing.JComboBox<String> pgCmbGender;
+    private javax.swing.JComboBox<String> pgCmbJabatan;
+    private javax.swing.JComboBox<String> pgCmbJamKerja;
+    private javax.swing.JTable pgTabelData;
+    private javax.swing.JTextArea pgTxtAlamat;
+    private javax.swing.JTextField pgTxtNIP;
+    private javax.swing.JTextField pgTxtNama;
+    private javax.swing.JTextField pgTxtNoPe;
     private javax.swing.JRadioButton radAbsen_cuti;
     private javax.swing.JRadioButton radAbsen_izin;
     private javax.swing.ButtonGroup rdBtnGroupIzin;
@@ -842,6 +1139,32 @@ public class AbsensiAdmin extends javax.swing.JFrame {
         radAbsen_cuti.setEnabled(false);
         txtAbsen_keterangan.setEnabled(false);
         btnAbsen_simpan.setEnabled(false);
+    }
+    private void setTextDisable2() {
+        pgTxtNIP.setEnabled(false);
+        pgTxtAlamat.setEnabled(false);
+        pgTxtNama.setEnabled(false);
+        pgTxtNoPe.setEnabled(false);
+        pgCmbGender.setEnabled(false);
+        pgCmbJabatan.setEnabled(false);
+        pgCmbJamKerja.setEnabled(false);
+        
+        pgTxtAlamat.setText("");
+        pgTxtNIP.setText("");
+        pgTxtNama.setText("");
+        pgTxtNoPe.setText("");
+        pgCmbGender.setSelectedIndex(-1);
+        pgCmbJabatan.setSelectedIndex(-1);
+        pgCmbJamKerja.setSelectedIndex(-1);
+    }
+    private void setTextEnable2() {
+        pgTxtNIP.setEnabled(true);
+        pgTxtAlamat.setEnabled(true);
+        pgTxtNama.setEnabled(true);
+        pgTxtNoPe.setEnabled(true);
+        pgCmbGender.setEnabled(true);
+        pgCmbJabatan.setEnabled(true);
+        pgCmbJamKerja.setEnabled(true);
     }
 
 }

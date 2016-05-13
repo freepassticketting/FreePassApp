@@ -4,8 +4,8 @@
  */
 package freepass.tampilan;
 
-import freepass.model.Submit_hadir;
-import freepass.control.Pegawe;
+import freepass.model.ManajPresensi;
+import freepass.control.ControlKaryawan;
 import freepass.control.Utama;
 import freepass.model.ManajDashboard;
 import freepass.tools.Koneksi;
@@ -29,7 +29,7 @@ import javax.swing.Timer;
 import net.proteanit.sql.DbUtils;
 
 public class AbsensiPegawai extends javax.swing.JFrame {
-    private List<Pegawe> ambil = new ArrayList<Pegawe>();    
+    private List<ControlKaryawan> ambil = new ArrayList<ControlKaryawan>();    
     public AbsensiPegawai() {
         initComponents();
         setWaktu();
@@ -236,13 +236,13 @@ public class AbsensiPegawai extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             String nip = txtNIP.getText();;
             boolean status_pegawai, status_hadir;
-            Pegawe pegawai = new Pegawe();            
+            ControlKaryawan pegawai = new ControlKaryawan();            
             pegawai.setNIP(nip);
             if("".equals(nip)){
                 JOptionPane.showMessageDialog(rootPane, "<error>NIP tidak ditemukan !!\nPastikan Anda mengimput NIP dengan benar !!", "Error", JOptionPane.ERROR_MESSAGE);
                 txtNIP.requestFocus();
             }else{        
-                Submit_hadir kehadiran = new Submit_hadir();
+                ManajPresensi kehadiran = new ManajPresensi();
                 try{
                     //cek apakah pegawai ada di tabel pegawai
                     status_pegawai = kehadiran.cek_pegawai(pegawai);
@@ -256,14 +256,14 @@ public class AbsensiPegawai extends javax.swing.JFrame {
                         ambil = kehadiran.ambil(pegawai);
                         
                         String data[] = new String[4];
-                        for(Pegawe h : ambil){
+                        for(ControlKaryawan h : ambil){
                             data[0] = h.getNama();
                             data[1] = h.getJabatan();
                             data[2] = h.getId_Jam();
                             data[3] = h.getAlamat();                       
                         }
                         Time waktu[] = new Time[4];
-                        for(Pegawe h : ambil){
+                        for(ControlKaryawan h : ambil){
                             waktu[0] = h.getMasukStart();
                             waktu[1] = h.getKerjaStart();
                             waktu[2] = h.getKerjaEnd();

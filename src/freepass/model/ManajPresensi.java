@@ -1,6 +1,6 @@
 package freepass.model;
 
-import freepass.control.Pegawe;
+import freepass.control.ControlKaryawan;
 import freepass.tools.Koneksi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
-public class Submit_hadir {
-    Pegawe pg = new Pegawe();
+public class ManajPresensi {
+    ControlKaryawan pg = new ControlKaryawan();
     //Menampilkan data ke tabel setiap kali karyawan absen
     public void Data2Table(JTable Tabel){
         String sql = "SELECT * FROM VwCekinsukses";
@@ -28,10 +28,10 @@ public class Submit_hadir {
             tbDataKaryawan.setModel(model);*/
             Tabel.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException ex) {
-            Logger.getLogger(Submit_hadir.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManajPresensi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public boolean cek_pegawai(Pegawe karyawan) throws SQLException {
+    public boolean cek_pegawai(ControlKaryawan karyawan) throws SQLException {
         String sql = "SELECT * from tbKaryawan where idKaryawan = ?";
         PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(sql);
         pst.setString(1, karyawan.getNIP());
@@ -41,7 +41,7 @@ public class Submit_hadir {
         return false;
     }
         
-   public boolean cek_kehadiran(Pegawe karyawan) throws SQLException {
+   public boolean cek_kehadiran(ControlKaryawan karyawan) throws SQLException {
         String cek = "SELECT * from tbKehadiran where idpegawai=? and tanggal=curdate()";
         PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(cek);
         pst.setString(1, karyawan.getNIP());
@@ -51,7 +51,7 @@ public class Submit_hadir {
         return true;
     }
    
-   public boolean cek_jamMasuk(Pegawe karyawan) throws SQLException {
+   public boolean cek_jamMasuk(ControlKaryawan karyawan) throws SQLException {
         String cek = "SELECT  from tbKaryawan where idKaryawan=?";
         PreparedStatement pst = Koneksi.getInstance().getKoneksi().prepareStatement(cek);
         pst.setString(1, karyawan.getNIP());
@@ -62,7 +62,7 @@ public class Submit_hadir {
     }
         
         
-    public List<Pegawe> ambil(Pegawe karyawan) throws SQLException {
+    public List<ControlKaryawan> ambil(ControlKaryawan karyawan) throws SQLException {
         String cek = " SELECT tbKaryawan.idKaryawan, tbKaryawan.Nama, tbKaryawan.Gender, tbKaryawan.No_Telp, tbJabatan.namajabatan, "
                 + "tbKaryawan.JamKerja, tbJam.jam_kerja_mulai, tbJam.jam_kerja_selesai, tbKaryawan.Alamat, "
                 + "tbJam.jam_masuk_mulai, tbJam.jam_keluar_selesai "
@@ -73,7 +73,7 @@ public class Submit_hadir {
         pst.setString(1, karyawan.getNIP());
         ResultSet rs;
         rs = pst.executeQuery();
-        List<Pegawe> list = new ArrayList<>();
+        List<ControlKaryawan> list = new ArrayList<>();
         if(rs.next()){
             pg.setNama(rs.getString("Nama"));
             pg.setAlamat(rs.getString("Alamat"));

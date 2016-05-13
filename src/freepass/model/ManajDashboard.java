@@ -30,7 +30,7 @@ public class ManajDashboard {
             tbDataKaryawan.setModel(model);*/
             tabel.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException ex) {
-            Logger.getLogger(Submit_hadir.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManajPresensi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public int getJmPegawai() throws SQLException{

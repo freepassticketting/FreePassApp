@@ -10,7 +10,7 @@ import java.sql.Time;
  *
  * @author Dendi
  */
-public class Pegawe {
+public class ControlKaryawan {
     private String NIP;
     private String Nama;
     private String Jabatan;
