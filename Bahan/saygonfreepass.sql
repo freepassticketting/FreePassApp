@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2016 at 05:08 AM
+-- Generation Time: May 13, 2016 at 10:53 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -53,6 +53,20 @@ CREATE TABLE `tbabsen` (
   `izin` varchar(4) NOT NULL,
   `tanggal` date NOT NULL,
   `keterangan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbfreepassing`
+--
+
+DROP TABLE IF EXISTS `tbfreepassing`;
+CREATE TABLE `tbfreepassing` (
+  `idTransaksi` bigint(6) NOT NULL,
+  `idKaryawan` varchar(30) NOT NULL,
+  `jmTiket` int(11) NOT NULL,
+  `tgAmbil` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -124,17 +138,31 @@ CREATE TABLE `tbkaryawan` (
   `No_Telp` varchar(16) NOT NULL,
   `Jabatan` varchar(20) NOT NULL,
   `Gender` char(1) NOT NULL,
-  `NIK` bigint(20) NOT NULL,
-  `JamKerja` varchar(3) NOT NULL
+  `JamKerja` varchar(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbkaryawan`
 --
 
-INSERT INTO `tbkaryawan` (`idKaryawan`, `Nama`, `Alamat`, `No_Telp`, `Jabatan`, `Gender`, `NIK`, `JamKerja`) VALUES
-('WT005', 'Muhammad Nufail', 'Krajan Karangrejo Purwosari Pasuruan', '+62 85646597876', 'C05', 'L', 293840928342908, 'D'),
-('WT008', 'Amiruddin Fadli', 'Sidoarjo Jawa Timur Indonesia', '+628593489053', 'C04', 'L', 2398409283, 'D');
+INSERT INTO `tbkaryawan` (`idKaryawan`, `Nama`, `Alamat`, `No_Telp`, `Jabatan`, `Gender`, `JamKerja`) VALUES
+('NP002', 'Azizah Erma S.', 'Pandaan', '+6285821287928', 'B05', 'P', ''),
+('NP003', 'M. Syaiful Arif', 'Bangil Pasuruan', '+6282817928391', 'C02', 'L', ''),
+('NP004', 'M. Riyadlul Lutfi', 'Pandaan', '+6285778609220', 'B03', 'L', '1'),
+('NP005', 'Malihatun Nisa', 'Karangrejo', '+6285860254963', 'C03', 'P', 'D'),
+('NP006', 'Nisaul Hasanah', 'Purwodadi', '+6285617972761', 'B02', 'P', ''),
+('NP007', 'Hibatin Wafiroh', 'Purwosari', '+6285719459064', 'C02', 'P', ''),
+('NP008', 'Firmansyah Syamsul A.', 'Purwosari', '+6285706527115', 'C01', 'L', ''),
+('NP009', 'Siti Aisyah', 'Bakalan', '+6285789254684', 'C02', 'P', ''),
+('WT002', 'Ulfatun N.', 'Pati Jateng', '+6285844860641', 'B04', 'P', ''),
+('WT003', 'Maulidah', 'Bakalan', '+6285618917140', 'B04', 'P', ''),
+('WT004', 'Athoillah', 'Kejayan', '+6285818509971', 'B04', 'L', ''),
+('WT005', 'Muhammad Nufail', 'Krajan Karangrejo Purwosari Pasuruan', '+62 85646597876', 'C05', 'L', ''),
+('WT006', 'Risyandi Anugerah H.', 'Pasuruan', '+6285847449858', 'B03', 'L', ''),
+('WT007', 'M. Yunus', 'Tutur', '+6285678437739', 'B02', 'L', ''),
+('WT008', 'Amiruddin Fadli', 'Sidoarjo Jawa Timur Indonesia', '+628593489053', 'C04', 'L', ''),
+('WT009', 'Lilis Trisnawati', 'Sukorejo', '+6285806395374', 'C04', 'P', ''),
+('WT010', 'Novian Budi D.', 'Karangtengah', '+6285791046362', 'C03', 'L', '');
 
 -- --------------------------------------------------------
 
@@ -177,34 +205,70 @@ CREATE TABLE `vwcekinsukses` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `vwdatakaryawan`
+--
+DROP VIEW IF EXISTS `vwdatakaryawan`;
+CREATE TABLE `vwdatakaryawan` (
+`NIP` varchar(30)
+,`Nama` varchar(50)
+,`Jabatan` varchar(30)
+,`Jam Kerja` varchar(2)
+,`Gender` char(1)
+,`No.Telp` varchar(16)
+,`Alamat` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vwrekapabsen`
+--
+DROP VIEW IF EXISTS `vwrekapabsen`;
+CREATE TABLE `vwrekapabsen` (
+`Tanggal` date
+,`NIP` varchar(30)
+,`Nama` varchar(50)
+,`Jabatan` varchar(30)
+,`Jam Masuk` time
+,`Jam Keluar` time
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `vwcekinsukses`
 --
 DROP TABLE IF EXISTS `vwcekinsukses`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwcekinsukses`  AS  select `tbkehadiran`.`idpegawai` AS `ID`,`tbkaryawan`.`Nama` AS `Nama`,`tbjabatan`.`namajabatan` AS `Jabatan`,`tbkehadiran`.`jmasuk` AS `Jam Masuk`,`tbkehadiran`.`jkeluar` AS `Jam Keluar` from ((`tbkehadiran` join `tbkaryawan`) join `tbjabatan`) where ((`tbkaryawan`.`idKaryawan` = `tbkehadiran`.`idpegawai`) and (`tbjabatan`.`idJabatan` = `tbkaryawan`.`Jabatan`)) ;
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vwdatakaryawan`
+--
+DROP TABLE IF EXISTS `vwdatakaryawan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwdatakaryawan`  AS  select `tbkaryawan`.`idKaryawan` AS `NIP`,`tbkaryawan`.`Nama` AS `Nama`,`tbjabatan`.`namajabatan` AS `Jabatan`,`tbkaryawan`.`JamKerja` AS `Jam Kerja`,`tbkaryawan`.`Gender` AS `Gender`,`tbkaryawan`.`No_Telp` AS `No.Telp`,`tbkaryawan`.`Alamat` AS `Alamat` from (`tbkaryawan` join `tbjabatan`) order by `tbkaryawan`.`idKaryawan` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vwrekapabsen`
+--
+DROP TABLE IF EXISTS `vwrekapabsen`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwrekapabsen`  AS  select `tbkehadiran`.`tanggal` AS `Tanggal`,`tbkaryawan`.`idKaryawan` AS `NIP`,`tbkaryawan`.`Nama` AS `Nama`,`tbjabatan`.`namajabatan` AS `Jabatan`,`tbkehadiran`.`jmasuk` AS `Jam Masuk`,`tbkehadiran`.`jkeluar` AS `Jam Keluar` from ((`tbkaryawan` join `tbjabatan`) join `tbkehadiran`) where ((`tbkehadiran`.`idpegawai` = `tbkaryawan`.`idKaryawan`) and (`tbjabatan`.`idJabatan` = `tbkaryawan`.`Jabatan`)) ;
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `tbfreepassing`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`username`);
-
---
--- Indexes for table `tbabsen`
---
-ALTER TABLE `tbabsen`
-  ADD PRIMARY KEY (`no`),
-  ADD KEY `idpegawai` (`idpegawai`);
-
---
--- Indexes for table `tbjabatan`
---
-ALTER TABLE `tbjabatan`
-  ADD PRIMARY KEY (`idJabatan`);
+ALTER TABLE `tbfreepassing`
+  ADD PRIMARY KEY (`idTransaksi`);
 
 --
 -- Indexes for table `tbjam`
@@ -232,10 +296,10 @@ ALTER TABLE `tbkehadiran`
 --
 
 --
--- AUTO_INCREMENT for table `tbabsen`
+-- AUTO_INCREMENT for table `tbfreepassing`
 --
-ALTER TABLE `tbabsen`
-  MODIFY `no` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+ALTER TABLE `tbfreepassing`
+  MODIFY `idTransaksi` bigint(6) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbkehadiran`
 --
