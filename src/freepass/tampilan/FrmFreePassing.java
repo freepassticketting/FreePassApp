@@ -23,11 +23,7 @@ public class FrmFreePassing extends javax.swing.JFrame {
      */
     public FrmFreePassing() {
         initComponents();
-        new ManajFreepassing().loadData2Tabel(tbDetailTiket);
-        if(new ManajFreepassing().cek_added())
-            btnAdding.setEnabled(false);
-        else
-            btnAdding.setEnabled(true);
+        loadFirst();
     }
 
     /**
@@ -45,13 +41,17 @@ public class FrmFreePassing extends javax.swing.JFrame {
         txtNIP = new javax.swing.JTextField();
         txtJmTiket = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        panelmakeOver2 = new komponenMakeOver.panelmakeOver();
         jLabel1 = new javax.swing.JLabel();
         btnAdding = new javax.swing.JButton();
         btnDetail = new javax.swing.JButton();
         btnAmbil = new javax.swing.JButton();
+        panelmakeOver3 = new komponenMakeOver.panelmakeOver();
+        panelDetailTiket = new komponenMakeOver.panelmakeOver();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDetailTiket = new javax.swing.JTable();
+        panelDetailTrx = new komponenMakeOver.panelmakeOver();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbDetailTrx = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Saygon FreePass");
@@ -88,18 +88,7 @@ public class FrmFreePassing extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtJmTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout panelmakeOver2Layout = new javax.swing.GroupLayout(panelmakeOver2);
-        panelmakeOver2.setLayout(panelmakeOver2Layout);
-        panelmakeOver2Layout.setHorizontalGroup(
-            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 329, Short.MAX_VALUE)
-        );
-        panelmakeOver2Layout.setVerticalGroup(
-            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Swis721 WGL4 BT", 3, 18)); // NOI18N
@@ -115,6 +104,11 @@ public class FrmFreePassing extends javax.swing.JFrame {
         });
 
         btnDetail.setText("Detail Transaksi");
+        btnDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailActionPerformed(evt);
+            }
+        });
 
         btnAmbil.setText("Ambil Tiket");
         btnAmbil.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +116,8 @@ public class FrmFreePassing extends javax.swing.JFrame {
                 btnAmbilActionPerformed(evt);
             }
         });
+
+        panelmakeOver3.setLayout(new java.awt.CardLayout());
 
         tbDetailTiket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,6 +138,56 @@ public class FrmFreePassing extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbDetailTiket);
 
+        javax.swing.GroupLayout panelDetailTiketLayout = new javax.swing.GroupLayout(panelDetailTiket);
+        panelDetailTiket.setLayout(panelDetailTiketLayout);
+        panelDetailTiketLayout.setHorizontalGroup(
+            panelDetailTiketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetailTiketLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelDetailTiketLayout.setVerticalGroup(
+            panelDetailTiketLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetailTiketLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelmakeOver3.add(panelDetailTiket, "card2");
+
+        tbDetailTrx.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbDetailTrx);
+
+        javax.swing.GroupLayout panelDetailTrxLayout = new javax.swing.GroupLayout(panelDetailTrx);
+        panelDetailTrx.setLayout(panelDetailTrxLayout);
+        panelDetailTrxLayout.setHorizontalGroup(
+            panelDetailTrxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetailTrxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelDetailTrxLayout.setVerticalGroup(
+            panelDetailTrxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetailTrxLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        panelmakeOver3.add(panelDetailTrx, "card3");
+
         javax.swing.GroupLayout panelmakeOver1Layout = new javax.swing.GroupLayout(panelmakeOver1);
         panelmakeOver1.setLayout(panelmakeOver1Layout);
         panelmakeOver1Layout.setHorizontalGroup(
@@ -149,24 +195,20 @@ public class FrmFreePassing extends javax.swing.JFrame {
             .addGroup(panelmakeOver1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelmakeOver1Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAmbil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelmakeOver1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnAmbil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnDetail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAdding, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnAdding)
+                                    .addComponent(btnDetail))))))
                 .addContainerGap())
-            .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelmakeOver1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelmakeOver2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(panelmakeOver3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelmakeOver1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdding, btnDetail});
@@ -174,24 +216,18 @@ public class FrmFreePassing extends javax.swing.JFrame {
         panelmakeOver1Layout.setVerticalGroup(
             panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelmakeOver1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelmakeOver1Layout.createSequentialGroup()
                         .addComponent(btnAmbil)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDetail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdding)))
+                        .addComponent(btnAdding))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelmakeOver1Layout.createSequentialGroup()
-                    .addGap(153, 153, 153)
-                    .addComponent(panelmakeOver2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(154, Short.MAX_VALUE)))
+                .addComponent(panelmakeOver3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,6 +251,7 @@ public class FrmFreePassing extends javax.swing.JFrame {
         try {
             new ManajFreepassing().addTiket(tbDetailTiket);
             JOptionPane.showMessageDialog(rootPane, "Jumlah Tiket Berhasil Ditambah 2", "Berhasil",JOptionPane.INFORMATION_MESSAGE);
+            loadFirst();
         } catch (SQLException ex) {
             Logger.getLogger(FrmFreePassing.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -230,6 +267,7 @@ public class FrmFreePassing extends javax.swing.JFrame {
             if(jmTik!=0 && jmTik-ctlFreepass.getjmTiket()<0){
                 new ManajFreepassing().ambilTiket(ctlFreepass);
                 JOptionPane.showMessageDialog(rootPane, "Berhasil Ambil Tiket...", "Berhasil",JOptionPane.INFORMATION_MESSAGE);
+                loadFirst();
             }else{
                 JOptionPane.showMessageDialog(rootPane, "Gagal Ambil Tiket, Jumlah Tiket Kuran !!", "Gagal Ambil",JOptionPane.ERROR_MESSAGE);
             }
@@ -242,6 +280,18 @@ public class FrmFreePassing extends javax.swing.JFrame {
         int row = tbDetailTiket.getSelectedRow();
         txtNIP.setText((String)tbDetailTiket.getValueAt(row, 0));
     }//GEN-LAST:event_tbDetailTiketMouseClicked
+
+    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+        if(btnDetail.getText().equals("Detail Transaksi")){
+            panelDetailTrx.setVisible(true);
+            panelDetailTiket.setVisible(false);
+            btnDetail.setText("Detail Tiket");
+        }else{
+            panelDetailTrx.setVisible(false);
+            panelDetailTiket.setVisible(true);
+            btnDetail.setText("Detail Transaksi");
+        }
+    }//GEN-LAST:event_btnDetailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,10 +338,23 @@ public class FrmFreePassing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private komponenMakeOver.panelmakeOver panelDetailTiket;
+    private komponenMakeOver.panelmakeOver panelDetailTrx;
     private komponenMakeOver.panelmakeOver panelmakeOver1;
-    private komponenMakeOver.panelmakeOver panelmakeOver2;
+    private komponenMakeOver.panelmakeOver panelmakeOver3;
     private javax.swing.JTable tbDetailTiket;
+    private javax.swing.JTable tbDetailTrx;
     private javax.swing.JTextField txtJmTiket;
     private javax.swing.JTextField txtNIP;
     // End of variables declaration//GEN-END:variables
+
+    private void loadFirst() {
+        new ManajFreepassing().loadDetailTiket(tbDetailTiket);
+        new ManajFreepassing().loadDetailTrx(tbDetailTrx);
+        if(new ManajFreepassing().cek_added())
+            btnAdding.setEnabled(false);
+        else
+            btnAdding.setEnabled(true);
+    }
 }

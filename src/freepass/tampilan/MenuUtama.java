@@ -118,6 +118,7 @@ public class MenuUtama extends javax.swing.JFrame {
 
     private void buttonMakeOver6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeOver6ActionPerformed
         new Utama().tampilProses();
+        this.dispose();
     }//GEN-LAST:event_buttonMakeOver6ActionPerformed
 
     private void btnInputData2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputData2ActionPerformed

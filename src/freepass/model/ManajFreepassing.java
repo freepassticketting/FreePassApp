@@ -26,7 +26,7 @@ public class ManajFreepassing {
     String sql;
     PreparedStatement pst;
     ResultSet rs;
-    public void loadData2Tabel(JTable tabel){
+    public void loadDetailTiket(JTable tabel){
         sql = "SELECT * FROM vwdetailtiket";
         try {
             Connection con = Koneksi.getInstance().getKoneksi();
@@ -37,13 +37,24 @@ public class ManajFreepassing {
             Logger.getLogger(ManajPresensi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void loadDetailTrx(JTable tabel){
+        sql = "SELECT tglAmbil as 'Tgl. Ambil', tbambiltiket.idKaryawan as 'NIP', Nama, jmlAmbil as 'Jml.Ambil', totTiket as 'Sisa Tiket' "+
+                "from tbambiltiket, tbkaryawan where tbambiltiket.idKaryawan=tbkaryawan.idKaryawan";
+        try {
+            Connection con = Koneksi.getInstance().getKoneksi();
+            Statement sttm = con.createStatement();
+            ResultSet rs = sttm.executeQuery(sql);
+            tabel.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(ManajPresensi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void addTiket(JTable tabel) throws SQLException{
         sql = "UPDATE `tbfreepassing` SET tglTrx = CURRENT_TIMESTAMP, `totTiket`=`totTiket`+2 WHERE JenisTrx = '0';";
         pst = Koneksi.getInstance().getKoneksi().prepareStatement(sql);
         pst.executeUpdate();
         pst.close();
-        loadData2Tabel(tabel);
+        loadDetailTiket(tabel);
     }
      public boolean cek_added() {
          boolean kondisi=false;
