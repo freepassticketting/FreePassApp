@@ -66,7 +66,7 @@ public class FrmLogin extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setFocusable(false);
         setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
-        setMinimumSize(new java.awt.Dimension(350, 230));
+        setMinimumSize(new java.awt.Dimension(300, 230));
         setUndecorated(true);
         setOpacity(0.95F);
         setResizable(false);

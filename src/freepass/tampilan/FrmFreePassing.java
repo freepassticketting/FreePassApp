@@ -5,6 +5,13 @@
  */
 package freepass.tampilan;
 
+import freepass.control.ControlFreepass;
+import freepass.model.ManajFreepassing;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nufail
@@ -16,6 +23,11 @@ public class FrmFreePassing extends javax.swing.JFrame {
      */
     public FrmFreePassing() {
         initComponents();
+        new ManajFreepassing().loadData2Tabel(tbDetailTiket);
+        if(new ManajFreepassing().cek_added())
+            btnAdding.setEnabled(false);
+        else
+            btnAdding.setEnabled(true);
     }
 
     /**
@@ -27,39 +39,209 @@ public class FrmFreePassing extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        panelmakeOver1 = new komponenMakeOver.panelmakeOver();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNIP = new javax.swing.JTextField();
+        txtJmTiket = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        panelmakeOver2 = new komponenMakeOver.panelmakeOver();
+        jLabel1 = new javax.swing.JLabel();
+        btnAdding = new javax.swing.JButton();
+        btnDetail = new javax.swing.JButton();
+        btnAmbil = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbDetailTiket = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Saygon FreePass");
 
-        jMenu1.setText("File");
+        jLabel2.setText("NIP.");
 
-        jMenu3.setText("jMenu3");
-        jMenu1.add(jMenu3);
+        txtJmTiket.setText("2");
 
-        jMenuBar1.add(jMenu1);
+        jLabel3.setText("Jumlah Tiket");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNIP, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                    .addComponent(txtJmTiket))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtJmTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
 
-        setJMenuBar(jMenuBar1);
+        javax.swing.GroupLayout panelmakeOver2Layout = new javax.swing.GroupLayout(panelmakeOver2);
+        panelmakeOver2.setLayout(panelmakeOver2Layout);
+        panelmakeOver2Layout.setHorizontalGroup(
+            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 329, Short.MAX_VALUE)
+        );
+        panelmakeOver2Layout.setVerticalGroup(
+            panelmakeOver2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 32, Short.MAX_VALUE)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Swis721 WGL4 BT", 3, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/freepass/img/customers.png"))); // NOI18N
+        jLabel1.setText("  Proses Freepass");
+
+        btnAdding.setText("Adding Freepass");
+        btnAdding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddingActionPerformed(evt);
+            }
+        });
+
+        btnDetail.setText("Detail Transaksi");
+
+        btnAmbil.setText("Ambil Tiket");
+        btnAmbil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmbilActionPerformed(evt);
+            }
+        });
+
+        tbDetailTiket.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "NIP", "Nama", "Jabatan", "Tiket"
+            }
+        ));
+        tbDetailTiket.setFillsViewportHeight(true);
+        tbDetailTiket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDetailTiketMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbDetailTiket);
+
+        javax.swing.GroupLayout panelmakeOver1Layout = new javax.swing.GroupLayout(panelmakeOver1);
+        panelmakeOver1.setLayout(panelmakeOver1Layout);
+        panelmakeOver1Layout.setHorizontalGroup(
+            panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAmbil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelmakeOver1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnDetail, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnAdding, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelmakeOver2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        panelmakeOver1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdding, btnDetail});
+
+        panelmakeOver1Layout.setVerticalGroup(
+            panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                        .addComponent(btnAmbil)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDetail)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdding)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelmakeOver1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelmakeOver1Layout.createSequentialGroup()
+                    .addGap(153, 153, 153)
+                    .addComponent(panelmakeOver2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(154, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 512, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelmakeOver1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addComponent(panelmakeOver1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddingActionPerformed
+        try {
+            new ManajFreepassing().addTiket(tbDetailTiket);
+            JOptionPane.showMessageDialog(rootPane, "Jumlah Tiket Berhasil Ditambah 2", "Berhasil",JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmFreePassing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAddingActionPerformed
+
+    private void btnAmbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmbilActionPerformed
+        ControlFreepass ctlFreepass = new ControlFreepass();
+        ctlFreepass.setNip(txtNIP.getText());
+        ctlFreepass.setjmTiket(Integer.parseInt(txtJmTiket.getText()));
+        
+        try {
+            int jmTik = new ManajFreepassing().getJmTiket(ctlFreepass);
+            if(jmTik!=0 && jmTik-ctlFreepass.getjmTiket()<0){
+                new ManajFreepassing().ambilTiket(ctlFreepass);
+                JOptionPane.showMessageDialog(rootPane, "Berhasil Ambil Tiket...", "Berhasil",JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Gagal Ambil Tiket, Jumlah Tiket Kuran !!", "Gagal Ambil",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmFreePassing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAmbilActionPerformed
+
+    private void tbDetailTiketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetailTiketMouseClicked
+        int row = tbDetailTiket.getSelectedRow();
+        txtNIP.setText((String)tbDetailTiket.getValueAt(row, 0));
+    }//GEN-LAST:event_tbDetailTiketMouseClicked
 
     /**
      * @param args the command line arguments
@@ -98,9 +280,18 @@ public class FrmFreePassing extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton btnAdding;
+    private javax.swing.JButton btnAmbil;
+    private javax.swing.JButton btnDetail;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private komponenMakeOver.panelmakeOver panelmakeOver1;
+    private komponenMakeOver.panelmakeOver panelmakeOver2;
+    private javax.swing.JTable tbDetailTiket;
+    private javax.swing.JTextField txtJmTiket;
+    private javax.swing.JTextField txtNIP;
     // End of variables declaration//GEN-END:variables
 }
